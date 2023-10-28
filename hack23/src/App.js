@@ -6,11 +6,13 @@ import Orders from './components/orders.component';
 import { Product } from './components/product.component';
 import Order from './components/order.component';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ThemeProvider } from "@material-tailwind/react";
 
 
 
 function App() {
   return (
+    <ThemeProvider>
     <div>
       <Navbar></Navbar>
       <BrowserRouter>
@@ -23,6 +25,7 @@ function App() {
       </Routes>
     </BrowserRouter>
     </div>
+    </ThemeProvider>
   );
 }
 
