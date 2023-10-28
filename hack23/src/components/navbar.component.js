@@ -73,9 +73,6 @@ export function NavbarWithSearch() {
              <FaSearch/>
             </div>
           </div>
-          <Button size="md" className="rounded-lg ">
-            Search
-          </Button>
         </div>
         <IconButton
           variant="text"
@@ -120,17 +117,7 @@ export function NavbarWithSearch() {
           {navList}
           <div className="flex flex-col gap-x-2 sm:flex-row sm:items-center">
             <div className="relative w-full gap-2 md:w-max">
-              <Input
-                type="search"
-                placeholder="Search"
-                containerProps={{
-                  className: "min-w-[288px]",
-                }}
-                className=" !border-t-blue-gray-300 pl-9 placeholder:text-blue-gray-300 focus:!border-blue-gray-300"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }}
-              />
+              <Searchbar/>
               <div className="!absolute left-3 top-[13px]">
                 <svg
                   width="13"
@@ -153,9 +140,6 @@ export function NavbarWithSearch() {
                 </svg>
               </div>
             </div>
-            <Button size="md" className="mt-1 rounded-lg sm:mt-0">
-              Search
-            </Button>
           </div>
         </div>
       </MobileNav>
