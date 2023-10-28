@@ -13,7 +13,7 @@ import { ThemeProvider } from "@material-tailwind/react";
 function App() {
   return (
     <ThemeProvider>
-    <div>
+    
       <Navbar></Navbar>
       <BrowserRouter>
       <Routes>
@@ -24,7 +24,7 @@ function App() {
           <Route path="orders/:orderId" element={<Order />} />
       </Routes>
     </BrowserRouter>
-    </div>
+  
     </ThemeProvider>
   );
 }

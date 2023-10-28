@@ -9,7 +9,7 @@ async function getAllProducts() {
 }
 
 async function getProductById(id) {
-    const res = await fetch("http://localhost:8000/api/products/getProduct/" + id)
+    const res = await fetch(PRODUCTS_BY_ID_API_URL + id)
     const object = await res.json();
     return object;
 }
@@ -27,5 +27,7 @@ async function getAllCustomers() {
 }
 
 module.exports = {
-    getAllProducts,
+    getAllCustomers,
+    getAllOrders,
+    getProductById,    
 }
