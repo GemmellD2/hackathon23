@@ -9,9 +9,9 @@ function Navbar() {
     <nav className="navbar">
       <div className="logo"></div>
       <ul className="nav-links">
-        <li><a href="home.component.js"><img src={Logo} ></img></a></li>
-        <li><a href="products.component.js">Products</a></li>
-        <li><a href="orders.component.js">Orders</a></li>
+        <li><a href="/"><img src={Logo} alt='gtrgtr' ></img></a></li>
+        <li><a href="/products">Products</a></li>
+        <li><a href="/orders">Orders</a></li>
       </ul>
     </nav>
   );
