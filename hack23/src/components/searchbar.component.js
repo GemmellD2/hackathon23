@@ -11,7 +11,7 @@ function Searchbar() {
   const [showDropdown, setShowDropdown] = useState(false);
 
   useEffect(() => {
-    if (inputValue == ''){
+    if (inputValue === ''){
         setShowDropdown(false);
         return;
     }

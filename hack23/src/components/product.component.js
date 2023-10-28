@@ -18,7 +18,7 @@ export const Product = () => {
                 
                 <div className="flex flex-row my-5 items-center">
                     <div className="container mr-5 w-1/3 flex flex-row justify-center">
-                        <img class="max-h-screen w-full h-fit" src={productData[0].PictureMain}></img>
+                        <img class="max-h-screen w-full h-fit" src={productData[0].PictureMain} alt={productData[0].ItemName}></img>
                     </div>
                     <div className="w-2/3 mr-5 border-solid">
                         <h1 class="font-bold text-3xl">{productData[0].ItemName}</h1>

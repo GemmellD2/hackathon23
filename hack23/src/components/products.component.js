@@ -1,5 +1,5 @@
 //will show a view of all orders which should be able to be sorted/filtered
-import React, { Component, useEffect, useState } from 'react';
+import React, {useEffect, useState } from 'react';
 import '../App.css';
 import { getAllProducts } from '../services';
 import categories from './categories';
@@ -58,7 +58,7 @@ function Product() {
                     // <ProductCard key={product.SKU_ID} data={product}/>
                     <a href={`/products/${product.SKU_ID}`} key={product.SKU_ID} className="card" class="relative block w-3/12 h-300 mx-3 my-2 p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100" >
                         <div class="block top-0 right-0 bottom-0 left-0 ease-in-out duration-300 hover:scale-110">
-                            <img class="h-40 mx-auto" src={product.PictureMain}/>
+                            <img class="h-40 mx-auto" src={product.PictureMain} alt={product.SKU_ID}/>
                             <h5 class="mb-2 text-center text-xl font-bold tracking-tight text-gray-900 dark:text-white">{product.ItemName}</h5>
                             {product.QtyInStock > 0 ? (<p class="text-center font-small text-green-700 mt-0">In Stock</p>) :
                             (<p class="text-center font-small text-red-700 mt-2">Not In Stock</p>) }
