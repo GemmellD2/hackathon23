@@ -1,0 +1,1 @@
+//will show a view of all products which should be able to be sorted/filtered
