@@ -25,3 +25,7 @@ async function getAllCustomers() {
     const object = await res.json();
     return object;
 }
+
+module.exports = {
+    getAllProducts,
+}

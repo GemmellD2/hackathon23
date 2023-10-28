@@ -9,6 +9,7 @@ import {
 } from "@material-tailwind/react";
 import {FaUser,FaCartPlus,FaHome,FaSearch} from "react-icons/fa"
 import Logo from "../secondary.png"
+import Searchbar from "./searchbar.component";
  
 export function NavbarWithSearch() {
   const [openNav, setOpenNav] = React.useState(false);
@@ -67,17 +68,7 @@ export function NavbarWithSearch() {
         <div className="hidden lg:block">{navList}</div>
         <div className="hidden items-center gap-x-2 lg:flex">
           <div className="relative flex w-full gap-2 md:w-max">
-            <Input
-              type="search"
-              placeholder="Search"
-              containerProps={{
-                className: "min-w-[288px]",
-              }}
-              className=" !border-t-blue-gray-300 pl-9 placeholder:text-blue-gray-300 focus:!border-blue-gray-300"
-              labelProps={{
-                className: "before:content-none after:content-none",
-              }}
-            />
+            <Searchbar></Searchbar>
             <div className="!absolute left-3 top-[13px]">
              <FaSearch/>
             </div>
