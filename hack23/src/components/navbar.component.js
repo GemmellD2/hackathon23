@@ -55,6 +55,11 @@ export function NavbarWithSearch() {
         <a href="/orders" className="flex items-center">
           Orders
         </a>
+        <a href="/login">
+        <Button size="md" className="rounded-lg mx-10 ">
+            Login
+        </Button>
+        </a>
       </Typography>
     </ul>
   );
