@@ -24,7 +24,7 @@ export const Product = () => {
                     <img src={productData[0].PictureMain} style={{width:'200px' }}></img>
                     </div>
                     <div className="container mr-5 border-solid">
-                    {productData[0].Online ? (<p className='block font-semibold text-xl font-normal leading-relaxed text-inherit antialiased '>Product is available online</p>):(<p className='block font-semibold text-xl font-normal leading-relaxed text-inherit antialiased bold'>Product is available only in store</p>)}
+                    {productData[0].Online ? (<p className='block font-semibold text-green-500 text-xl leading-relaxed antialiased'>Product is available online</p>):(<p className='block font-semibold text-red-500 text-xl leading-relaxed antialiased'>Product is available only in store</p>)}
                     <p className='block font-sans text-xl font-normal leading-relaxed text-inherit antialiased'>{productData[0].ProductDetail}</p>
                     <div>
                         <div className='flex flex-row mt-5'>

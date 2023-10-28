@@ -30,5 +30,5 @@ module.exports = {
     getAllCustomers,
     getAllOrders,
     getProductById,
-    getAllProducts,
+    getAllProducts    
 }
