@@ -53,8 +53,6 @@ app.get('/orders', async (req, res) => {
       const orders = await response.json();
       cache.set('allOrders', orders, 600);   
       res.json(orders);
-
-
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
@@ -63,17 +61,21 @@ app.get('/orders', async (req, res) => {
   // should maybe cache?
   app.get('/products', async (req, res) => {
     try {
-      const apiUrl = 'https://www.guitarguitar.co.uk/hackathon/products/';
+        const cachedProducts = cache.get('allProducts');
   
-      const response = await fetch(apiUrl); 
+        if (cachedProducts) {
+          return res.json(cachedProducts);
+        }
   
-      if (!response.ok) {
-        throw new Error(`API request failed with status ${response.status}`);
-      }
-  
-      const data = await response.json();
-  
-      res.json(data);
+        const apiUrl = 'https://www.guitarguitar.co.uk/hackathon/products/';
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+          throw new Error(`API request failed with status ${response.status}`);
+        }
+        
+        const products = await response.json();
+        cache.set('allProducts', products, 600);   
+        res.json(products);
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
@@ -99,11 +101,34 @@ app.get('/orders', async (req, res) => {
         cache.set('allOrders', orders, 600);
         const filteredOrders = orders.filter(order => order.CustomerId === customerId)
         res.json(filteredOrders);
-  
-  
       } catch (error) {
         res.status(500).json({ error: error.message });
       }
+  });
+
+  app.get('/getProduct/:id', async (req, res) => {
+    try {
+        const cachedProducts = cache.get('allProducts');
+        prodId = req.params.id;
+  
+        if (cachedProducts) {
+            const filteredProducts = cachedProducts.filter(prod => prod.SKU_ID === prodId)
+            return res.json(filteredProducts);
+        }
+
+        const apiUrl = 'https://www.guitarguitar.co.uk/hackathon/products/';
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+          throw new Error(`API request failed with status ${response.status}`);
+        }
+        
+        const products = await response.json();
+        cache.set('allProducts', products, 600);
+        const filteredProducts = products.filter(prod => prod.SKU_ID === prodId)
+        res.json(filteredProducts);
+    } catch (error) {
+        res.status(500).json({ error : error.message });
+    }
   });
 
 app.listen(port, () => {
