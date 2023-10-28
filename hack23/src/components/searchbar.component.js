@@ -51,7 +51,7 @@ function Searchbar() {
               <div key={index} className={`entry p-2 border-b border-gray-200 ${index === 0 ? 'border-t' : ''}`}>
                 {/* <div className="entry-image w-12 h-12 bg-gray-200 rounded-full mr-2"><img src={product.PictureMain}></img></div> */}
                 <div className="entry-details">
-                  <a href={"products/:"+product.SKU_ID} className="text-lg font-semibold">{product.ItemName}</a>
+                  <a href={`/products/${product.SKU_ID}`} className="text-lg font-semibold">{product.ItemName}</a>
                 </div>
               </div>
             ))}

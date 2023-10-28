@@ -29,5 +29,6 @@ async function getAllCustomers() {
 module.exports = {
     getAllCustomers,
     getAllOrders,
-    getProductById,    
+    getProductById,
+    getAllProducts,
 }
