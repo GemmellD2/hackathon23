@@ -22,16 +22,19 @@ const Product = () => {
     console.log(allProducts)
 
     return (
-        <div class="w-4/5 mx-auto">
+        <div class="w-4/5 mx-auto my-10">
             <h1 class="text-3xl font-bold">Products</h1>
-            <div class="flex flex-row my-5 flex-wrap justify-around [&>*:nth-child(2+3n)]">
+            <h5 class="text-l text-gray-600">Our current product collection!</h5>
+            <div class="flex flex-row my-5 flex-wrap justify-around">
                 { allProducts ?
                 allProducts.map(product => (
                     // <ProductCard key={product.SKU_ID} data={product}/>
-                    <a href={`/products/${product.SKU_ID}`} key={product.SKU_ID} className="card" class="block w-3/12 mx-3 my-2 p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700" >
-                        <img class="h-40 mx-auto" src={product.PictureMain}/>
-                        <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">{product.ItemName}</h5>
-                        <p class="text-center font-normal text-gray-700 dark:text-gray-400">£{product.SalesPrice}</p>
+                    <a href={`/products/${product.SKU_ID}`} key={product.SKU_ID} className="card" class="relative block w-3/12 h-300 mx-3 my-2 p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100" >
+                        <div class="block top-0 right-0 bottom-0 left-0 ease-in-out duration-300 hover:scale-110">
+                            <img class="h-40 mx-auto" src={product.PictureMain}/>
+                            <h5 class="mb-2 text-center text-xl font-bold tracking-tight text-gray-900 dark:text-white">{product.ItemName}</h5>
+                            <p class="text-center font-normal text-gray-700 dark:text-gray-400">£{product.SalesPrice}</p>
+                        </div>
                     </a>
                 ))
                 : <p>Products could not be rendered</p>}
