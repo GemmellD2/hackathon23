@@ -5,10 +5,12 @@ import {
   Accordion,
   AccordionHeader,
   AccordionBody,
+  Button,
 } from "@material-tailwind/react";
 import { getOrdersById, getAllOrders, getCustomerById } from "../services";
 import categories from './categories';
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const customer = await getCustomerById(localStorage.getItem('userId'));
 
@@ -59,6 +61,7 @@ export function Orders() {
 const [openAccordions, setOpenAccordions] = React.useState([]);
 const [selectedCategory, setSelectedCategory] = useState('all');
 const [filteredOrders, setFilteredOrders] = useState([]);
+const navigate = useNavigate();
 
 useEffect(() => {
     if (selectedCategory === 'all') {
@@ -126,6 +129,7 @@ return (
     </li>
     ))}
 </ul>
+<a href={`/orders/${item.Id}`}><Button className='mt-2 ease-in-out duration-300 hover:bg-red-500 hover:scale-110'>Details</Button></a>
 <div className="mt-4">
             {userId !== "admin" ?
             (<iframe

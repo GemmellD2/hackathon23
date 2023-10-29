@@ -65,4 +65,30 @@ const router = express.Router();
       }
   });
 
+  router.get('/order/:id', async (req, res) => {
+    try {
+        const cachedOrders = cache.get('allOrders');
+        orderId = parseInt(req.params.id);
+  
+        if (cachedOrders) {
+            const filteredOrders = cachedOrders.filter(order => order.Id === orderId)
+            console.log(filteredOrders)
+            return res.json(filteredOrders);
+        }
+
+        const apiUrl = 'https://www.guitarguitar.co.uk/hackathon/orders/';
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+          throw new Error(`API request failed with status ${response.status}`);
+        }
+        
+        const orders = await response.json();
+        cache.set('allOrders', orders, 600);
+        const filteredOrders = orders.filter(order => order.Id === orderId)
+        res.json(filteredOrders);
+      } catch (error) {
+        res.status(500).json({ error: error.message });
+      }
+  });
+
 module.exports = router;

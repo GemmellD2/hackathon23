@@ -2,6 +2,7 @@ const PRODUCTS_API_URL = "http://localhost:8000/api/products";
 const PRODUCTS_BY_ID_API_URL = "http://localhost:8000/api/products/getProduct/";
 const ORDERS_API_URL = "http://localhost:8000/api/orders";
 const ORDERS_BY_ID_API_URL = "http://localhost:8000/api/customers/getOrders/";
+const ORDER_BY_ID_API_URL = "http://localhost:8000/api/order/";
 const CUSTOMERS_API_URL = "http://localhost:8000/api/customers/";
 
 async function getAllProducts() {
@@ -24,6 +25,12 @@ async function getAllOrders() {
 
 async function getOrdersById(id){
     const res = await fetch(ORDERS_BY_ID_API_URL + id)
+    const object = await res.json();
+    return object;
+}
+
+async function getOrderById(id){
+    const res = await fetch(ORDER_BY_ID_API_URL + id)
     const object = await res.json();
     return object;
 }
@@ -52,6 +59,7 @@ module.exports = {
     getProductById,
     getAllProducts,
     getOrdersById,
+    getOrderById,
     getAllUserIds,
     getCustomerById,
 }
