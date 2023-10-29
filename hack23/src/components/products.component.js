@@ -8,7 +8,15 @@ import { Button } from "@material-tailwind/react";
 const allProducts = await getAllProducts();
 const itemsPerPage = 50; // Number of products to display per page
 const customer = await getCustomerById(localStorage.getItem('userId'));
-const loyalty = customer[0].LoyaltyLevel;
+
+function getLoyalty(){
+    if (customer.length == 0)
+        return 0;
+    
+    return customer[0].LoyaltyLevel;
+}
+
+const loyalty = getLoyalty();
 
 function Product() {
   const [selectedCategory, setSelectedCategory] = useState('all');
