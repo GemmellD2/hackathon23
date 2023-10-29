@@ -13,7 +13,7 @@ import { useState, useEffect } from "react";
 const customer = await getCustomerById(localStorage.getItem('userId'));
 
 function getLoyalty(){
-    if (customer.length == 0)
+    if (customer.length === 0)
         return 0;
     
     return customer[0].LoyaltyLevel;
@@ -36,7 +36,7 @@ function getPrice(product){
 var userId = localStorage.getItem('userId');
 var isLoggedIn = localStorage.getItem('isLoggedIn');
 
-if (userId == "admin"){
+if (userId === "admin"){
     var orderData = await getAllOrders();
 }
 else{
@@ -127,7 +127,7 @@ return (
     ))}
 </ul>
 <div className="mt-4">
-            {userId != "admin" ?
+            {userId !== "admin" ?
             (<iframe
             width="100%"
             height="300"

@@ -17,7 +17,7 @@ import {
     const navigate = useNavigate();
 
     const handleLogin = () => {
-        if (userIdInput == "admin" || allUserIds.includes(parseInt(userIdInput))) {
+        if (userIdInput === "admin" || allUserIds.includes(parseInt(userIdInput))) {
           login(userIdInput);
           navigate('/')
         }  
