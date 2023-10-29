@@ -21,6 +21,25 @@ const router = express.Router();
     }
   });
 
+  router.get('/customers/:id', async (req, res) => {
+    try {
+      const apiUrl = 'https://www.guitarguitar.co.uk/hackathon/customers/';
+      const response = await fetch(apiUrl);
+      customerId = parseInt(req.params.id);
+  
+      if (!response.ok) {
+        throw new Error(`API request failed with status ${response.status}`);
+      }
+  
+      const data = await response.json();
+  
+      res.json(data.filter(customer => customer.Id === customerId));
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+
   router.get('/customers/getOrders/:id', async (req, res) => {
     try {
         const cachedOrders = cache.get('allOrders');

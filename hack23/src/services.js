@@ -41,10 +41,17 @@ async function getAllUserIds(){
     return allUserIds;
 }
 
+async function getCustomerById(id){
+    const res = await fetch(CUSTOMERS_API_URL + id)
+    const object = await res.json();
+    return object;
+}
+
 module.exports = {
     getAllOrders,
     getProductById,
     getAllProducts,
     getOrdersById,
     getAllUserIds,
+    getCustomerById,
 }

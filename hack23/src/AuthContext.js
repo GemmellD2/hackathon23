@@ -27,7 +27,6 @@ export function AuthProvider({ children }) {
   };
 
   useEffect(() => {
-    // Additional side effects when authentication state changes can go here.
   }, [isLoggedIn]);
 
   return (

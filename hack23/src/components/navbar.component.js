@@ -50,10 +50,6 @@ export function NavbarWithSearch() {
             color="blue-gray"
             className="flex items-center gap-x-2 p-1 font-medium"
           >
-            <FaUser/>
-            <a href="/products" className="flex items-center">
-              Products
-            </a>
           </Typography>
           <Typography
             as="li"

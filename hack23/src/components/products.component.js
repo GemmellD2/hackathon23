@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import '../App.css';
-import { getAllProducts } from '../services';
+import { getAllProducts, getCustomerById } from '../services';
 import categories from './categories';
 import { useAuth } from '../AuthContext';
 import { Button } from "@material-tailwind/react";
 
 const allProducts = await getAllProducts();
 const itemsPerPage = 50; // Number of products to display per page
+const customer = await getCustomerById(localStorage.getItem('userId'));
+const loyalty = customer[0].LoyaltyLevel;
 
 function Product() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const { isLoggedIn, login, logout } = useAuth();
-  console.log(isLoggedIn);
 
   useEffect(() => {
     if (selectedCategory === 'all') {
@@ -64,7 +65,33 @@ function Product() {
                 <h5 class="mb-2 text-center text-xl font-bold tracking-tight text-gray-900 dark-text-white">{product.ItemName}</h5>
                 {product.QtyInStock > 0 ? (<p class="text-center font-small text-green-700 mt-0">In Stock</p>) :
                 (<p class="text-center font-small text-red-700 mt-2">Not In Stock</p>) }
-                <p class="text-center font-normal text-gray-700 dark-text-gray-400 mt-3">£{product.SalesPrice}</p>
+                {
+                loyalty === 0 ?
+                (<p class="text-center font-normal text-black-700 dark-text-black-400 mt-3">£{product.SalesPrice}</p>)
+                : (loyalty === 1 && product.Category.startsWith("GU")) ?
+                (
+                <div><p class="text-center font-normal text-gray-700 dark-text-black-400 mt-3 line-through">£{product.SalesPrice}</p>
+                 <p class="text-center font-normal text-red-700 dark-text-black-400 mt-3">£{(0.95 * product.SalesPrice).toFixed(2)}</p>
+                 <p className='font-bold text-center text-red-800'>Save {(0.05 * product.SalesPrice).toFixed(2)} £!!</p>
+                 </div>
+                )
+                : (loyalty === 2 && (product.Category.startsWith('GU') || product.Category.startsWith('ACGB'))) ?
+                (
+                    <div><p class="text-center font-normal text-gray-700 dark-text-gray-400 mt-3 line-through">£{product.SalesPrice}</p>
+                    <p class="text-center font-normal text-red-700 dark-text-black-400 mt-3">£{(0.9 * product.SalesPrice).toFixed(2)}</p>
+                    <p className='font-bold text-center text-red-800'>Save {(0.1 * product.SalesPrice).toFixed(2)} £!!</p>
+                    </div>
+                )
+                : 
+                (
+                    <div><p class="text-center font-normal text-gray-700 dark-text-gray-400 mt-3 line-through">£{product.SalesPrice}</p>
+                    <p class="text-center font-normal text-red-700 dark-text-black-400 mt-3">
+                        £{(0.9 * product.SalesPrice).toFixed(2)}
+                    </p>
+                    <p className='font-bold text-center text-red-800'>Save {(0.1 * product.SalesPrice).toFixed(2)} £!!</p>
+                    </div>
+                )
+                }
               </div>
             </a>
           ))
