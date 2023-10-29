@@ -50,7 +50,7 @@ return (
         <div className="ml-4">
             <p className="text-xl font-semibold">{product.ItemName}</p>
             <p className="text-gray-600">Brand: {product.BrandName}</p>
-            <p className="text-blue-600 font-semibold">Price: ${product.SalesPrice}</p>
+            <p className="text-blue-600 font-semibold">Price: £{product.SalesPrice}</p>
         </div>
         </div>
     </li>
