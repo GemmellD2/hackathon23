@@ -23,7 +23,7 @@ function Product() {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const { isLoggedIn, login, logout } = useAuth();
-
+  
   useEffect(() => {
     if (selectedCategory === 'all') {
       // If no category is selected, display all products
@@ -90,7 +90,7 @@ function Product() {
                     <p className='font-bold text-center text-red-800'>Save {(0.1 * product.SalesPrice).toFixed(2)} £!!</p>
                     </div>
                 )
-                : 
+                : (loyalty === 3) ?
                 (
                     <div><p class="text-center font-normal text-gray-700 dark-text-gray-400 mt-3 line-through">£{product.SalesPrice}</p>
                     <p class="text-center font-normal text-red-700 dark-text-black-400 mt-3">
@@ -98,7 +98,7 @@ function Product() {
                     </p>
                     <p className='font-bold text-center text-red-800'>Save {(0.1 * product.SalesPrice).toFixed(2)} £!!</p>
                     </div>
-                )
+                ) : (<p></p>)
                 }
               </div>
             </a>
