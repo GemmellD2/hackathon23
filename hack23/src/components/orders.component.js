@@ -38,7 +38,10 @@ return (
             <p className="text-blue-600 font-semibold">Price: ${product.SalesPrice}</p>
         </div>
         </div>
-        <div className="mt-4">
+    </li>
+    ))}
+</ul>
+<div className="mt-4">
             {console.log(item.ShippingAddress.street_address)}
             <iframe
             width="100%"
@@ -46,10 +49,6 @@ return (
             src="https://www.openstreetmap.org/export/embed.html?bbox=-4.2593393,55.8469494,-4.2293393,55.8669494&layer=mapnik&marker=55.8569494,-4.2443393"
 ></iframe>
     </div>
-    </li>
-    ))}
-</ul>
-
 </AccordionBody>
     </Accordion>
     ))}
