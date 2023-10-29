@@ -7,6 +7,8 @@ import {
   AccordionBody,
 } from "@material-tailwind/react";
 import { getOrdersById, getAllOrders, getCustomerById } from "../services";
+import categories from './categories';
+import { useState, useEffect } from "react";
 
 const customer = await getCustomerById(localStorage.getItem('userId'));
 
@@ -41,8 +43,34 @@ else{
     var orderData = await getOrdersById(parseInt(userId))
 }
 
+function getUniqueCategories() {
+    const uniqueCategories = new Set();
+  
+    orderData.forEach((order) => {
+      order.Products.forEach((product) => {
+        uniqueCategories.add(product.Category);
+      });
+    });
+  
+    return Array.from(uniqueCategories);
+}
+
 export function Orders() {
 const [openAccordions, setOpenAccordions] = React.useState([]);
+const [selectedCategory, setSelectedCategory] = useState('all');
+const [filteredOrders, setFilteredOrders] = useState([]);
+
+useEffect(() => {
+    if (selectedCategory === 'all') {
+      setFilteredOrders(orderData);
+    } else {
+      const filtered = orderData.filter((order) =>
+        order.Products.some((product) => product.Category.startsWith(selectedCategory))
+      );
+      setFilteredOrders(filtered);
+    }
+  }, [selectedCategory, filteredOrders]);
+
 const handleOpen = (index) => {
     if (openAccordions.includes(index)) {
       setOpenAccordions(openAccordions.filter((i) => i !== index));
@@ -54,11 +82,27 @@ const handleOpen = (index) => {
 return (
     <div className="w-4/5 mx-auto my-10">
     <div>
+        <div className='flex flex-row justify-between'>
         <h1 className="font-bold text-3xl">Your Orders</h1>
+        <div class='order-last flex flex-col '>
+          <label htmlFor="categorySelect" class='font-sm font-bold'>Filter your Orders:</label>
+          <select id='categorySelect'
+            onChange={(event) => setSelectedCategory(event.target.value)}
+            class="block appearance-none w-full bg-white border border-gray-300 hover:border-gray-400 px-4 py-2 pr-8 rounded-lg focus:outline-none focus:border-indigo-500 focus:shadow-outline-indigo active-bg-gray-100"
+          >
+            <option value='all' class="text-l">All orders</option>
+            {getUniqueCategories().map((category, index) => (
+              <option class="text-l" key={index} value={category}>
+                {categories[category.split('_')[0]]}
+              </option>
+            ))}
+            </select>
+        </div>
+        </div>
         {isLoggedIn ? (<h2></h2>) : (<h2 className="font-bold text-2xl mt-10">You're not logged in, so no orders.</h2>)}
     </div>
     <div>
-    {orderData.map((item, index) => (
+    {filteredOrders.map((item, index) => (
         <Accordion open={openAccordions.includes(index)} key={index}>
         <AccordionHeader onClick={() => handleOpen(index)}>Order {index + 1} - ID #{item.Id}</AccordionHeader>
         <AccordionBody className="p-4">
