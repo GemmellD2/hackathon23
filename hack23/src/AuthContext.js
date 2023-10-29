@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 const AuthContext = createContext();
 
@@ -7,17 +7,28 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    localStorage.getItem('isLoggedIn') === 'true'
+  );
+  const [userId, setUserId] = useState(localStorage.getItem('userId') || '');
 
-  const login = () => {
-    // Implement your login logic here.
+  const login = (id) => {
     setIsLoggedIn(true);
+    setUserId(id);
+    localStorage.setItem('isLoggedIn', 'true');
+    localStorage.setItem('userId', id);
   };
 
   const logout = () => {
-    // Implement your logout logic here.
     setIsLoggedIn(false);
+    setUserId('');
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('userId');
   };
+
+  useEffect(() => {
+    // Additional side effects when authentication state changes can go here.
+  }, [isLoggedIn]);
 
   return (
     <AuthContext.Provider value={{ isLoggedIn, login, logout }}>

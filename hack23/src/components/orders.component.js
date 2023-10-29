@@ -6,24 +6,39 @@ import {
   AccordionHeader,
   AccordionBody,
 } from "@material-tailwind/react";
-import { getOrdersById } from "../services";
+import { getOrdersById, getAllOrders } from "../services";
 
 
-var orderData = await getOrdersById(9833)
+var userId = localStorage.getItem('userId');
+var isLoggedIn = localStorage.getItem('isLoggedIn');
+
+if (userId == "admin"){
+    var orderData = await getAllOrders();
+}
+else{
+    var orderData = await getOrdersById(parseInt(userId))
+}
+
 export function Orders() {
-    console.log(orderData)
-const [open, setOpen] = React.useState(null);
-const handleOpen = (value) => setOpen(open === value ? 0 : value);
+const [openAccordions, setOpenAccordions] = React.useState([]);
+const handleOpen = (index) => {
+    if (openAccordions.includes(index)) {
+      setOpenAccordions(openAccordions.filter((i) => i !== index));
+    } else {
+      setOpenAccordions([...openAccordions, index]);
+    }
+  };
 
 return (
     <div className="w-4/5 mx-auto my-10">
     <div>
-        <h1 className="font-bold text-3xl">Orders</h1>
+        <h1 className="font-bold text-3xl">Your Orders</h1>
+        {isLoggedIn ? (<h2></h2>) : (<h2 className="font-bold text-2xl mt-10">You're not logged in, so no orders.</h2>)}
     </div>
     <div>
     {orderData.map((item, index) => (
-        <Accordion open={open === index}>
-        <AccordionHeader onClick={() => handleOpen(index)}>Order {index + 1}</AccordionHeader>
+        <Accordion open={openAccordions.includes(index)} key={index}>
+        <AccordionHeader onClick={() => handleOpen(index)}>Order {index + 1} - ID #{item.Id}</AccordionHeader>
         <AccordionBody className="p-4">
 <p className="text-lg font-semibold">Order Date: {item.DateCreated}</p>
 <p className="mb-4">Number of Items: {item.Products.length}</p>
@@ -42,12 +57,13 @@ return (
     ))}
 </ul>
 <div className="mt-4">
-            {console.log(item.ShippingAddress.street_address)}
-            <iframe
+            {userId != "admin" ?
+            (<iframe
             width="100%"
             height="300"
-            src="https://www.openstreetmap.org/export/embed.html?bbox=-4.2593393,55.8469494,-4.2293393,55.8669494&layer=mapnik&marker=55.8569494,-4.2443393"
-></iframe>
+            src="https://www.openstreetmap.org/export/embed.html?bbox=-4.2593393,55.8469494,-4.2293393,55.8669494&layer=mapnik&marker=55.8569494,-4.2443393">
+            </iframe>)
+            : (<h1></h1>) }
     </div>
 </AccordionBody>
     </Accordion>

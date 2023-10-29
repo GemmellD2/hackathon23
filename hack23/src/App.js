@@ -1,6 +1,5 @@
 import './App.css';
-import Navbar from './components/navbar.component';
-import Home from "./components/home.component"
+import Navbar, { NavbarWithSearch } from './components/navbar.component';
 import Products from './components/products.component';
 import Orders from './components/orders.component';
 import { Product } from './components/product.component';
@@ -16,11 +15,10 @@ function App() {
   return (
     <AuthProvider>
       <ThemeProvider>
-      
-        <Navbar></Navbar>
         <BrowserRouter>
+        <Navbar></Navbar>
         <Routes>
-            <Route index element={<Home />} />
+            <Route path='/' element={<Products />} />
             <Route path="products" element={<Products />} />
             <Route path="orders" element={<Orders />} />
             <Route path="products/:productId" element={<Product />} />

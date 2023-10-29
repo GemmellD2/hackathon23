@@ -22,22 +22,29 @@ async function getAllOrders() {
     return object;
 }
 
-async function getAllCustomers() {
-    const res = await fetch(CUSTOMERS_API_URL)
-    const object = await res.json();
-    return object;
-}
-
 async function getOrdersById(id){
     const res = await fetch(ORDERS_BY_ID_API_URL + id)
     const object = await res.json();
     return object;
 }
 
+async function getAllUserIds(){
+    const res = await fetch(CUSTOMERS_API_URL);
+    const object = await res.json();
+    const allUserIds = [];
+
+    object.forEach(user => {
+        const userId = user.Id;
+        allUserIds.push(userId);
+    });
+
+    return allUserIds;
+}
+
 module.exports = {
-    getAllCustomers,
     getAllOrders,
     getProductById,
     getAllProducts,
     getOrdersById,
+    getAllUserIds,
 }
