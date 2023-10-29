@@ -87,7 +87,8 @@ return (
     <div>
         <div className='flex flex-row justify-between'>
         <h1 className="font-bold text-3xl">Your Orders</h1>
-        <div class='order-last flex flex-col '>
+        {isLoggedIn ?
+        (<div class='order-last flex flex-col '>
           <label htmlFor="categorySelect" class='font-sm font-bold'>Filter your Orders:</label>
           <select id='categorySelect'
             onChange={(event) => setSelectedCategory(event.target.value)}
@@ -100,7 +101,7 @@ return (
               </option>
             ))}
             </select>
-        </div>
+        </div>) : (<p></p>) }
         </div>
         {isLoggedIn ? (<h2></h2>) : (<h2 className="font-bold text-2xl mt-10">You're not logged in, so no orders.</h2>)}
     </div>
